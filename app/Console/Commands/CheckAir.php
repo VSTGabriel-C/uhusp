@@ -40,6 +40,7 @@ class CheckAir extends Command
     public function handle()
     {
         (new Air)->list_airs();
+        (new Air)->create_model_test(20);
         return 0;
     }
 }

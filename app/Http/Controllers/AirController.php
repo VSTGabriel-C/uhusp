@@ -18,12 +18,12 @@ class AirController extends Controller
         return $air;
     }
 
-    public function show($id)
+    public function show()
     {
-        $response = Air::where('id', $id)->first();
+        $response = Air::whereDate('created_at', now())->simplePaginate(50);
 
         if (!$response) {
-            return $this->error('', 'Id do not match', 401);
+            return $this->error('', 'Empty list', 401);
         }
 
         return $this->succes([

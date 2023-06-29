@@ -34,7 +34,7 @@ class Air extends Model
             'air' => $air
         ], 'Air created successfully');
     }
-    
+
     public function create_model_test($temp)
     {
         $air = Air::create([
@@ -49,13 +49,19 @@ class Air extends Model
 
     public function list_airs($flag = 400)
     {
-        $last = Air::whereDate('created_at', now())->select('created_at', 'power')->get()->last();
+        $last = Air::whereDate('created_at', now())->get()->last();
         $result = null;
-        $response = [
-            'current_status' => $last->power,
-            'time_off' => $result,
-            'flag' => 0
-        ];
+        $response = null;
+
+        if($last){
+            $response = [
+                'current_status' => $last->power,
+                'temperature' => $last->temperature,
+                'humidity' => $last->humidity,
+                'time_off' => $result,
+                'flag' => 0
+            ];
+        }
 
         if($last->power == 0){
             $last_on = Air::whereDate('created_at', now())->select('created_at', 'power')->where('power', '=', 1)->get()->last();
