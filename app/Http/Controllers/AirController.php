@@ -18,17 +18,11 @@ class AirController extends Controller
         return $air;
     }
 
-    public function show()
+    public function show(Request $request)
     {
-        $response = Air::whereDate('created_at', now())->simplePaginate(50);
+        $air = (new Air)->show($request);
 
-        if (!$response) {
-            return $this->error('', 'Empty list', 401);
-        }
-
-        return $this->succes([
-            'air' => $response
-        ], 'List air successfully');
+        return $air;
     }
 
     public function update(Request $request, $id)

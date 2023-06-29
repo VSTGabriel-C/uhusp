@@ -47,6 +47,39 @@ class Air extends Model
         ], 'Air created successfully');
     }
 
+    public function show($request)
+    {
+        $date_start = $request->date_start;
+        $date_end = $request->date_end;
+        $quant = $request->quant;
+
+        if(!$quant) $quant = 20;
+
+        if($date_start){
+            if(!$date_end){
+                $response = Air::whereDate('created_at',$request->date_start)->simplePaginate($quant);
+            }
+            else{
+                $response = Air::whereDate('created_at','>=',$request->date_start)
+                ->whereDate('created_at','<=',$request->date_end)
+                ->simplePaginate($quant);
+            }
+        }
+
+        else {
+            $response = Air::whereDate('created_at', now())->simplePaginate($quant);
+        }
+
+        if (!$response) {
+            return $this->error('', 'Empty list', 401);
+        }
+
+        return $this->succes([
+            'air' => $response
+        ], 'List air successfully');
+
+    }
+
     public function list_airs($flag = 400)
     {
         $last = Air::whereDate('created_at', now())->get()->last();
