@@ -25,16 +25,23 @@ class AirController extends Controller
         return $air;
     }
 
-    public function update(Request $request, $id)
+    public function list_airs()
     {
-        $air = (new Air)->update_model($request, $id);
+        $air = (new Air)->list_airs();
 
         return $air;
     }
 
-    public function list_airs()
+    public function export_air(Request $request)
     {
-        $air = (new Air)->list_airs();
+        $air = (new Air)->export_model($request);
+
+        return $air;
+    }
+
+    public function update(Request $request, $id)
+    {
+        $air = (new Air)->update_model($request, $id);
 
         return $air;
     }

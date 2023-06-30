@@ -15,9 +15,10 @@ class CreateAirsTable extends Migration
     {
         Schema::create('airs', function (Blueprint $table) {
             $table->id();
-            $table->string('temperature');
-            $table->string('humidity');
-            $table->string('power');
+            $table->float('temperature');
+            $table->float('humidity');
+            $table->integer('power');
+            $table->integer('days');
             $table->timestamps();
         });
     }

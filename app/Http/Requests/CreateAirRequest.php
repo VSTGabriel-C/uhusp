@@ -13,7 +13,7 @@ class CreateAirRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,8 +24,8 @@ class CreateAirRequest extends FormRequest
     public function rules()
     {
         return [
-            'temperature' => ['required', 'string'],
-            'humidity' => ['required', 'string'],
+            'temperature' => ['required', 'numeric'],
+            'humidity' => ['required', 'numeric'],
             'power' => ['required', 'integer'],
         ];
     }
