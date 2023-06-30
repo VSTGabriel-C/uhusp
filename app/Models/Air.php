@@ -91,7 +91,7 @@ class Air extends Model
 
     }
 
-    public function list_airs($flag = 400)
+    public function list_airs($flag = 100)
     {
         $last = Air::whereDate('created_at', now())->get()->last();
         $result = null;
@@ -111,7 +111,7 @@ class Air extends Model
                 $last_on = Air::select('created_at', 'power')->where('power', '=', 1)->get()->last();
 
                 if($last_on){
-                    $date1 = Carbon::parse($last->created_at);
+                    $date1 = Carbon::now();
                     $date2 = Carbon::parse($last_on->created_at);
 
                     $result = $date1->diffInMinutes($date2);
