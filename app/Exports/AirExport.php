@@ -5,6 +5,7 @@ namespace App\Exports;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
 class AirExport implements FromCollection, WithHeadings, WithMapping
@@ -33,13 +34,12 @@ class AirExport implements FromCollection, WithHeadings, WithMapping
     }
     public function map($row): array
     {
-        //dd($row);
         return [
             $row['temperature'] === 0.00 ? '0' : $row['temperature'],
             $row['humidity'] === 0.00 ? '0' : $row['humidity'],
             $row['power'] === 0 ? '0' : $row['power'],
             $row['days'] === 0 ? '0' : $row['days'],
-            $row['created_at'] =  $row['created_at']
+            $row['created_at'] =  Carbon::parse($row['created_at'])->format('d-m-Y H:i:s')
         ];
     }
 }
